@@ -1,0 +1,10 @@
+.base {
+    margin-top: 5rem;
+}
+
+body {
+    background-image: url('../images/backgrounds/reg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+

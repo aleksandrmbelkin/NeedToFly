@@ -1,0 +1,89 @@
+.navbar-my {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    background: rgba(0, 0, 0, 0);
+
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+}
+
+.navbar-brand {
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 1.8rem;
+    line-height: inherit;
+    white-space: nowrap;
+    
+    background: linear-gradient(to right, #ffffff, #a1c4fd);
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    vertical-align: middle;
+    margin-top: -0.5rem;
+    transition: all 0.3s ease;
+
+}
+
+.navbar-brand:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(to right, #a1c4fd, #ffffff);
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+.btn {
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    margin-top: .5rem;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(31, 11, 84, 0.4);
+}
+
+.btn-primary {
+    color: #fff;
+    background: linear-gradient(to right, #0f4365, #0b7148);
+    border-color: #0f4365;
+}
+
+.btn-success {
+    color: #fff;
+    background: linear-gradient(to right, #0b7148, #10850c);
+    border-color: #0b7148;
+}
+
+.user {
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 1.8rem;
+    line-height: inherit;
+    white-space: nowrap;
+    
+    background: linear-gradient(to right, #86d1f7, #0a9de7);
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    vertical-align: middle;
+    margin-top: .8rem;
+}

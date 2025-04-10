@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="icon" href="{{ url_for('static', filename='images/icons/main.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+{% endblock %}
+
+{% block main %}
+    <main>
+        <h1 class="site-title">NeedToFly</h1>
+        <p class="site-subtitle">Ваш помощник в поиске авиабилетов</p>
+        <div class="buttons-container">
+            <a href="/search" class="btn-main search-btn">Поиск авиабилетов</a>
+            <a href="/schedule" class="btn-main table-btn">Просмотр расписания</a>
+            {% if current_user.is_authenticated %}
+                <a href="/favorites" class="btn-main favorite-btn">Избранное</a>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <p class="authors">Авторы: Белкин А. и Логачев Н.</p>
+    </footer>
+{% endblock %}

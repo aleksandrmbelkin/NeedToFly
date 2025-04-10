@@ -1,0 +1,70 @@
+/* Стили для страницы 404 */
+
+.background {
+    background-image: url('../images/backgrounds/error.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(to right, #ffffff, #a1c4fd);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-top: 60px;
+}
+
+.error-message {
+    font-size: 3rem;
+    font-weight: 200;
+    text-align: center;
+    background: linear-gradient(to right, #ffffff, #a1c4fd);
+    background-size: 100% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-top: 55px;
+}
+
+.border {
+    margin-top: 40px;
+}
+
+.btn-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #1e3c72;
+    background: linear-gradient(to right, #ffffff, #a1c4fd);
+    transition: all 0.3s ease;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin-top: 70px;
+}
+
+.btn-icon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px #b9d2fa;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 3rem;
+}
