@@ -32,22 +32,6 @@ def main():
     db_session.global_init("db/users_favorites.db")
     db_sess = db_session.create_session()
     app.register_blueprint(log.blueprint)
-    
-    # for i in range(1, 5):
-    #     user = User()
-    #     user.name = f"Пользователь {i}"
-    #     user.email = f"email{i}@email.ru"
-    #     user.hashed_password = f"{i}"
-    #     db_sess.add(user)
-
-    #     favorit = Favorites(flight_number=i + 5, date="23.07.2025/15.08.2025", user_id=i)
-    #     db_sess.add(favorit)
-    # db_sess.commit()
-
-    if current_user:
-        # TODO Показывание кнопки с пререходом в избранные билеты
-        pass
-
     app.run()
 
 
