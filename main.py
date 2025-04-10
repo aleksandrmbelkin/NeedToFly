@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template
 from flask_login import LoginManager, current_user
 
@@ -31,8 +32,10 @@ def handle_bad_request(e):
 def main():
     db_session.global_init("db/users_favorites.db")
     db_sess = db_session.create_session()
+    
+    port = int(os.environ.get("PORT", 5000))
     app.register_blueprint(log.blueprint)
-    app.run()
+    app.run(host='0.0.0.0', port=port)
 
 
 if __name__ == '__main__':
