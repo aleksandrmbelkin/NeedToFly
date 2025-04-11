@@ -21,7 +21,7 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-    return render_template("main.html", title='NeedToFly', header=True)
+    return render_template("index.html", title='NeedToFly', header=True)
 
 
 @app.errorhandler(404)
