@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="icon" href="{{ url_for('static', filename='images/icons/search.png') }}" type="image/x-icon">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/search.css') }}">    
+{% endblock %}
+
+{% block main %}
+<main>
+    <form id="myForm">
+        <input type="text" list="items" id="search-input" placeholder="Начните вводить...">
+        <datalist id="items"></datalist>
+        <input type="hidden" id="selected-label" name="selected_label">
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+        // Ждем загрузки DOM перед выполнением скрипта
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('search-input');
+            const datalist = document.getElementById('items');
+            const hiddenInput = document.getElementById('selected-label');
+            const form = document.getElementById('myForm');
+
+            if (!input || !datalist || !hiddenInput || !form) {
+                console.error('Один из элементов не найден!');
+                return;
+            }
+
+            const allItems = [
+                { value: "apple", label: "Яблоко (Фрукт)" },
+                { value: "orange", label: "Апельсин (Цитрус)" },
+                { value: "banana", label: "Банан (Тропический фрукт)" },
+                { value: "grape", label: "Виноград (Ягода)" },
+                { value: "pineapple", label: "Ананас (Тропический фрукт)" }
+            ];
+
+            input.addEventListener('input', function(e) {
+                const query = e.target.value.toLowerCase();
+                
+                if (query.length >= 1) {
+                    const filteredItems = allItems
+                        .filter(item => item.label.toLowerCase().includes(query))
+                        .slice(0, 3);
+                    
+                    datalist.innerHTML = '';
+                    filteredItems.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.value;
+                        option.setAttribute('data-label', item.label);
+                        datalist.appendChild(option);
+                    });
+                    
+                    input.focus();
+                } else {
+                    datalist.innerHTML = '';
+                }
+            });
+
+            input.addEventListener('change', function() {
+                const selectedOption = Array.from(datalist.options).find(
+                    option => option.value === input.value
+                );
+                if (selectedOption) {
+                    hiddenInput.value = selectedOption.getAttribute('data-label');
+                }
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Отправленные данные:', {
+                    input_value: input.value,
+                    display_label: hiddenInput.value
+                });
+                // form.submit();
+            });
+        });
+    </script>
+</main>
+{% endblock %}
