@@ -8,3 +8,4 @@ python-dotenv==1.1.0
 requests==2.32.3
 SQLAlchemy==2.0.29
 sqlalchemy-serializer==1.4.22
+airportsdata==20250224
