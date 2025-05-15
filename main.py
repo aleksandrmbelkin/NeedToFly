@@ -5,7 +5,7 @@ from flask_restful import Api
 
 import fav_resource
 from pages import login_manager as log
-from pages import search
+from pages import search, tablo
 from pages import save_tickets, favorites, download
 from db import db_session
 from db.models.users import User
