@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head class="background">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Несуществующая страница</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/icons/error.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/error.css') }}">
+</head>
+<body class="background">
+        <main>
+            <div class="error-message border">╔════════════════════════════════════════╗</div>
+            <div class="error-code">УСтраница не найдена</div>
+            <div class="error-message">Похоже, вы пытаетесь найти страницу, которой не существует.</div>
+            <div class="buttons-container">
+                <a href="/" class="btn-icon">← На главную</a>
+            </div>
+            <div class="error-message border">╚════════════════════════════════════════╝</div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="icon" href="{{ url_for('static', filename='images/icons/search.png') }}" type="image/x-icon">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/tablo.css') }}">    
+{% endblock %}
+
+{% block main %}
+<main>
+    <form id="myForm" method="POST" class="base">
+        <p>
+            {{ form.airport.label }}<br>
+            {{ form.airport(class="form-control", type="string") }}<br>
+            {% for error in form.airport.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.country.label }}<br>
+            {{ form.country(class="form-control", type="string") }}<br>
+            {% for error in form.country.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <div>{{ message }}</div>
+    </form>
+    
+        {% for i in lt %}
+            <a class="btn btn-primary" href="/{{i['name']}}/{{i['airport_departure']}}"><h2>Полёт в {{i["country"]}}</h2></a>
+            <div>В аэропорт {{i["name"]}} (iata Код), из аэропорта {{i["airport_departure"]}}</div><br>
+        {% endfor %}
+</main>
+{% endblock %}

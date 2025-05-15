@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="icon" href="{{ url_for('static', filename='images/icons/search.png') }}" type="image/x-icon">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/search.css') }}">
+{% endblock %}
+
+{% block main %}
+<main>
+    {% if lt|length != 0 %}
+        {% for i in lt %}
+            <div>
+                <label>Из аэропорта {{i['airport_departure']}}</label><br>
+                <label>В аэропорт {{i['airport_arrival']}}</label><br>
+                <label>Дата: {{i['flight_date']}}</label><br>
+                <label>Авиакомпания: {{i['airline_name']}}</label><br>
+                <label>Номер полёта: {{i['flight_number']}}</label><br>
+                <button><a class="btn btn-primary" href=/delete/{{current_user.id}}/{{i['id']}}>Удалить из избранного</a></button>
+                <button><a class="btn btn-primary" href=/download/{{current_user.id}}/{{i['id']}}>Скачать информацию о билете</a></button>
+                <hr>
+            </div>
+        {% endfor %}
+    {% else %}
+        <label class="alert alert-danger">У вас пока нет избранных билетов</label>
+    {% endif %}
+</main>
+{% endblock %}

@@ -1,0 +1,263 @@
+body {
+    background-image: url('../img/backgrounds/search.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.search-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 1rem;
+
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    text-decoration: none;
+    vertical-align: middle;
+    transition: all .4s ease;
+    pointer-events: auto;
+}
+
+.logo:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(to right, #00f2fe, #4facfe);
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+.logo i {
+    font-size: 2.5rem;
+    margin-top: 1rem;
+}
+
+.logo h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+}
+
+.explain {
+    margin-bottom: 1rem;
+    font-size: .8rem;
+}
+
+.search-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.indent {
+    content: "";
+    display: block;
+    height: 20px;
+}
+
+.search-card {
+    flex: 1;
+    padding: 2.5rem;
+}
+
+.form-row {
+    position: relative;
+    display: flex;
+    margin-bottom: 4rem;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group label i {
+    margin-right: 8px;
+    color: #4facfe;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #4facfe;
+    box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.2);
+    outline: none;
+}
+
+.warning {
+    text-align: center;
+}
+
+.swap-btn {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 1.8rem;
+}
+
+.swap-btn button {
+    background: #f0f0f0;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #555;
+}
+
+.swap-btn button:hover {
+    background: #4facfe;
+    color: white;
+    transform: rotate(180deg);
+}
+
+.passengers .passenger-controls {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 0.5rem;
+}
+
+.passenger-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.passenger-type:last-child {
+    margin-bottom: 0;
+}
+
+.counter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.counter-btn {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.counter-btn:hover {
+    background: #4facfe;
+    color: white;
+    border-color: #4facfe;
+}
+
+.count {
+    min-width: 20px;
+    text-align: center;
+}
+
+.checkbox {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox input {
+    width: auto;
+}
+
+.search-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 1rem;
+}
+
+.search-btn:hover {
+    background: linear-gradient(to right, #3a9bec, #00d9e9);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+}
+
+.search-btn i {
+    margin-right: 10px;
+}
+
+.loader-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 9999;
+}
+
+.loader-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    text-align: center;
+}
+
+.loader-gif {
+    width: 40%;
+    height: 40%;
+    object-fit: contain;
+}
+
+.loader-text {
+    color: white;
+    margin-top: 20px;
+    font-size: 1.2em;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.download {
+    display: none;
+    text-align: center;
+}

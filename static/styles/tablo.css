@@ -1,0 +1,10 @@
+body {
+    background-image: url('../img/backgrounds/search.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.base {
+    margin-top: 5rem;
+}
