@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="icon" href="{{ url_for('static', filename='images/icons/search.png') }}" type="image/x-icon">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/search.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/search_result.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block main %}
+<main>
+    <div class="search-page">
+        <div class="search-header">
+            <a href="/search" class="logo">
+                <i class="fas fa-plane"></i>
+                <h1>Поиск авиабилетов</h1>
+            </a>
+        </div>
+
+                {% if data|length == 0 %}
+                    <div class="search-container">
+                        <div class="search-card">
+                            <div class="warning">
+                                <h2>
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    К сожалению мы не смогли найти билеты по вашему запросу
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+
+                {% else %}
+                    {% if type == 'one-way' %}
+                        {% for flight in data %}
+                            <div class="search-container">
+                                <div class="lines">
+                                    <label class="where-ticket-arrive line-vertical"></label>
+                                    <label class="where-ticket-departure line-gorizontal"></label>
+                                </div>
+                                <div class="search-card">
+                                    {% if flight["segments"]|length == 1 %}
+                                        <div class="form-row tail">
+                                            <div class="where-ticket-departure">{{ flight['segments'][0]['departure']['town'] }} ({{ flight['segments'][0]['departure']['iataCode'] }})
+                                                <p class="time time-time">{{ flight['segments'][0]['departure']['at']['time'] }}</p>
+                                                <p class="time date-time">{{ flight['segments'][0]['departure']['at']['date'] }}</p>
+                                            </div>
+
+                                            <div class="strela">═══════⮞
+                                                <p class="time">{{ flight['duration'] }}</p>
+                                                <p class="time nonStop">Без пересадок</p>
+                                            </div>
+
+                                            <div class="where-ticket-arrive">{{ flight['segments'][0]['arrival']['town'] }} ({{ flight['segments'][-1]['arrival']['iataCode'] }})
+                                                <p class="time time-time">{{ flight['segments'][0]['arrival']['at']['time'] }}</p>
+                                                <p class="time date-time">{{ flight['segments'][0]['arrival']['at']['date'] }}</p>
+                                            </div>
+
+                                            <div class="ticket">
+                                                <p class="price">Цена: от {{ flight['price']['base'][:-3] }} {{ flight['price']['currency'] }}</p>
+                                                <p class="place">Колличество мест: {{ flight['place'] }}</p>
+                                                <p class="travelClass">Класс: {{ flight['travelClass'] }}</p>
+                                            </div>
+
+                                            <!-- ИЗБРАННОЕ -->
+                                        </div>
+                                        <div class="aviacompany">
+                                            <img class="company-logo" src={{ flight['segments'][0]['aviacompany']['logo'] }}>
+                                            <label class="company-logo company-name">{{ flight['segments'][0]['aviacompany']['name'] }}</label>
+
+                                            <div class="baggage">
+                                                <p class="includedCheckedBags">{{ flight['bagage']['includedCheckedBags'] }}</p>
+                                                <p class="includedCabinBags">{{ flight['bagage']['includedCabinBags'] }}</p>
+                                                <p class="for-one">* - включено в стоимость на человека с местом</p>
+                                            </div>
+                                        </div>
+
+                                    {% else %}
+                                        <div class="form-row tail">
+                                            <div class="where-ticket-departure">{{ flight['segments'][0]['departure']['town'] }} ({{ flight['segments'][0]['departure']['iataCode'] }})
+                                                <p class="time time-time">{{ flight['segments'][0]['departure']['at']['time'] }}</p>
+                                                <p class="time date-time">{{ flight['segments'][0]['departure']['at']['date'] }}</p>
+                                            </div>
+                                        
+                                            <div class="strela">═══════⮞
+                                                <p class="time">{{ flight['duration'] }}</p>
+                                                <button class="time transit-button" onclick="toggleContent('transits-{{ loop.index }}')">Пересадки</button>
+                                            </div>
+
+                                            <div class="where-ticket-arrive">{{ flight['segments'][-1]['arrival']['town'] }} ({{ flight['segments'][-1]['arrival']['iataCode'] }})
+                                                <p class="time time-time">{{ flight['segments'][-1]['arrival']['at']['time'] }}</p>
+                                                <p class="time date-time">{{ flight['segments'][-1]['arrival']['at']['date'] }}</p>
+                                            </div>
+
+                                            <p class="price">Цена: от {{ flight['price']['base'][:-3] }} {{ flight['price']['currency'] }}</p>
+                                            <p class="price place">Колличество мест: {{ flight['place'] }}</p>
+                                            <p class="price travelClass">Класс: {{ flight['travelClass'] }}</p>
+
+                                            <div id="transits-{{ loop.index }}" class="transits">
+                                                {% for segment in flight['segments'] %}
+                                                    <div class="one-transit">
+                                                        <div class="where-ticket-departure transit-departure">{{ segment['departure']['town'] }} ({{ segment['departure']['iataCode'] }})
+                                                            <p class="time time-time">{{ segment['departure']['at']['time'] }}</p>
+                                                            <p class="time date-time date-time-transit">{{ segment['departure']['at']['date'] }}</p>
+                                                        </div>
+                                                    
+
+                                                        <div class="transit-strela">═══════⮞
+                                                            <p class="time">{{ segment['duration'] }}</p>
+                                                        </div>
+
+                                                        <div class="transit-arrive">{{ segment['arrival']['town'] }} ({{ segment['arrival']['iataCode'] }})
+                                                            <p class="time time-time">{{ segment['arrival']['at']['time'] }}</p>
+                                                            <p class="time date-time date-time-transit">{{ segment['arrival']['at']['date'] }}</p>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+
+                                            <!-- ИЗБРАННОЕ -->
+                                        </div>
+                                        <div class="aviacompany">
+                                            <img class="company-logo" src={{ flight['segments'][0]['aviacompany']['logo'] }}>
+                                            <label class="company-logo company-name">{{ flight['segments'][0]['aviacompany']['name'] }}</label>
+
+                                            <div class="baggage">
+                                                <p class="includedCheckedBags">{{ flight['bagage']['includedCheckedBags'] }}</p>
+                                                <p class="includedCabinBags">{{ flight['bagage']['includedCabinBags'] }}</p>
+                                                <p class="for-one">* - включено в стоимость на человека с местом</p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <p class="indent"></p>
+                        {% endfor %}
+
+                    {% elif type == 'round-trip' %}
+                        {% for flight in data %}
+                            <div class="search-container">
+                                <div class="lines">
+                                    <label class="where-ticket-arrive line-vertical"></label>
+                                    <label class="where-ticket-departure line-gorizontal return-line"></label>
+                                </div>
+                                <div class="search-card">
+                                    {% if flight['itineraries'][0]["segments"]|length == 1 %}
+                                        <div class="form-row tail">
+                                            <div class="where-ticket-departure">{{ flight['itineraries'][0]['segments'][0]['departure']['town'] }} ({{ flight['itineraries'][0]['segments'][0]['departure']['iataCode'] }})
+                                                <p class="time time-time">{{ flight['itineraries'][0]['segments'][0]['departure']['at']['time'] }}</p>
+                                                <p class="time date-time">{{ flight['itineraries'][0]['segments'][0]['departure']['at']['date'] }}</p>
+                                            </div>
+
+                                            <div class="strela">═══════⮞
+                                                <p class="time">{{ flight['duration'] }}</p>
+                                                <p class="time nonStop">Без пересадок</p>
+                                            </div>
+
+                                            <div class="where-ticket-arrive">{{ flight['itineraries'][0]['segments'][-1]['arrival']['town'] }} ({{ flight['itineraries'][0]['segments'][-1]['arrival']['iataCode'] }})
+                                                <p class="time time-time">{{ flight['itineraries'][0]['segments'][-1]['arrival']['at']['time'] }}</p>
+                                                <p class="time date-time">{{ flight['itineraries'][0]['segments'][-1]['arrival']['at']['date'] }}</p>
+                                            </div>
+
+                                            <div class="ticket">
+                                                <p class="price">Цена: от {{ flight['price']['base'][:-3] }} {{ flight['price']['currency'] }}</p>
+                                                <p class="place">Колличество мест: {{ flight['place'] }}</p>
+                                                <p class="travelClass">Класс: {{ flight['travelClass'] }}</p>
+                                            </div>
+
+                                            <!-- ИЗБРАННОЕ -->
+                                        </div>
+
+                                        <div class="form-row tail return-where">
+                                            <div class="where-ticket-departure">{{ flight['itineraries'][1]['segments'][0]['departure']['town'] }} ({{ flight['itineraries'][1]['segments'][0]['departure']['iataCode'] }})
+                                                <p class="time time-time">{{ flight['itineraries'][1]['segments'][0]['departure']['at']['time'] }}</p>
+                                                <p class="time date-time">{{ flight['itineraries'][1]['segments'][0]['departure']['at']['date'] }}</p>
+                                            </div>
+
+                                            <div class="strela">═══════⮞
+                                                <p class="time">{{ flight['duration'] }}</p>
+                                                <p class="time nonStop">Без пересадок</p>
+                                            </div>
+
+                                            <div class="where-ticket-arrive">{{ flight['itineraries'][1]['segments'][-1]['arrival']['town'] }} ({{ flight['itineraries'][1]['segments'][-1]['arrival']['iataCode'] }})
+                                                <p class="time time-time">{{ flight['itineraries'][1]['segments'][-1]['arrival']['at']['time'] }}</p>
+                                                <p class="time date-time">{{ flight['itineraries'][1]['segments'][-1]['arrival']['at']['date'] }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="aviacompany">
+                                            <img class="company-logo" src={{ flight['itineraries'][0]['segments'][0]['aviacompany']['logo'] }}>
+                                            <label class="company-logo company-name">{{ flight['itineraries'][0]['segments'][0]['aviacompany']['name'] }}</label>
+
+                                            <div class="baggage">
+                                                <p class="includedCheckedBags">{{ flight['bagage']['includedCheckedBags'] }}</p>
+                                                <p class="includedCabinBags">{{ flight['bagage']['includedCabinBags'] }}</p>
+                                                <p class="for-one">* - включено в стоимость на человека с местом</p>
+                                            </div>
+                                        </div>
+
+                                    {% else %}
+                                        <div class="form-row tail">
+                                            <div class="where-ticket-departure">{{ flight['segments'][0]['departure']['town'] }} ({{ flight['segments'][0]['departure']['iataCode'] }})
+                                                <p class="time time-time">{{ flight['segments'][0]['departure']['at']['time'] }}</p>
+                                                <p class="time date-time">{{ flight['segments'][0]['departure']['at']['date'] }}</p>
+                                            </div>
+                                        
+                                            <div class="strela">═══════⮞
+                                                <p class="time">{{ flight['duration'] }}</p>
+                                                <button class="time transit-button" onclick="toggleContent('transits-{{ loop.index }}')">Пересадки</button>
+                                            </div>
+                                            
+                                            <div class="where-ticket-arrive">{{ flight['segments'][-1]['arrival']['town'] }} ({{ flight['segments'][-1]['arrival']['iataCode'] }})
+                                                <p class="time time-time">{{ flight['segments'][-1]['arrival']['at']['time'] }}</p>
+                                                <p class="time date-time">{{ flight['segments'][-1]['arrival']['at']['date'] }}</p>
+                                            </div>
+                                            <p class="price">Цена: от {{ flight['price']['base'][:-3] }} {{ flight['price']['currency'] }}</p>
+                                            <p class="price place">Колличество мест: {{ flight['place'] }}</p>
+                                            <p class="price travelClass">Класс: {{ flight['travelClass'] }}</p>
+
+                                            <div id="transits-{{ loop.index }}" class="transits">
+                                                {% for segment in flight['segments'] %}
+                                                    <div class="one-transit">
+                                                        <div class="where-ticket-departure transit-departure">{{ segment['departure']['town'] }} ({{ segment['departure']['iataCode'] }})
+                                                            <p class="time time-time">{{ segment['departure']['at']['time'] }}</p>
+                                                            <p class="time date-time date-time-transit">{{ segment['departure']['at']['date'] }}</p>
+                                                        </div>
+                                                    
+
+                                                        <div class="transit-strela">═══════⮞
+                                                            <p class="time">{{ segment['duration'] }}</p>
+                                                        </div>
+
+                                                        <div class="transit-arrive">{{ segment['arrival']['town'] }} ({{ segment['arrival']['iataCode'] }})
+                                                            <p class="time time-time">{{ segment['arrival']['at']['time'] }}</p>
+                                                            <p class="time date-time date-time-transit">{{ segment['arrival']['at']['date'] }}</p>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+
+                                            <!-- ИЗБРАННОЕ -->
+                                        </div>
+                                        <div class="aviacompany">
+                                            <img class="company-logo" src={{ flight['segments'][0]['aviacompany']['logo'] }}>
+                                            <label class="company-logo company-name">{{ flight['segments'][0]['aviacompany']['name'] }}</label>
+
+                                            <div class="baggage">
+                                                <p class="includedCheckedBags">{{ flight['bagage']['includedCheckedBags'] }}</p>
+                                                <p class="includedCabinBags">{{ flight['bagage']['includedCabinBags'] }}</p>
+                                                <p class="for-one">* - включено в стоимость на человека с местом</p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                </div>
+                            </div>
+                            <p class="indent"></p>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            content.classList.toggle('show');
+        }
+    </script>
+</main>
+{% endblock %}
