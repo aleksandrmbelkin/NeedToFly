@@ -16,6 +16,8 @@
                 <label>Авиакомпания: {{i['airline_name']}}</label><br>
                 <label>Номер полёта: {{i['flight_number']}}</label><br>
                 <button><a class="btn btn-primary" href=/delete/{{current_user.id}}/{{i['id']}}>Удалить из избранного</a></button>
+                <button><a class="btn btn-primary" href=/download/{{current_user.id}}/{{i['id']}}>Скачать информацию о билете</a></button>
+                <hr>
             </div>
         {% endfor %}
     {% else %}
