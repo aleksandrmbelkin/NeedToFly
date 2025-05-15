@@ -43,6 +43,7 @@ def main():
 
     port = int(os.environ.get("PORT", 5000))
     app.register_blueprint(search.blueprint)
+    app.register_blueprint(tablo.blueprint)
     app.register_blueprint(log.blueprint)
     app.register_blueprint(save_tickets.blueprint)
     app.register_blueprint(favorites.blueprint)
