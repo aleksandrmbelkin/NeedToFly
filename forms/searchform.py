@@ -14,6 +14,6 @@ class SearchForm(FlaskForm):
     children = IntegerField('Дети', validators=[NumberRange(min=0, max=9)])
     infants = IntegerField('Младенцы', validators=[NumberRange(min=0, max=9)])
     
-    travelClass = SelectField('Выберите класс', choices=["Эконом", "Бизнесс"])
+    travelClass = SelectField('Выберите класс', choices=["Эконом", "Бизнес"])
     nonStop = BooleanField('Без пересадок')
     submit = SubmitField('Поиск')
