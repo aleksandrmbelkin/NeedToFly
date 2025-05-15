@@ -9,6 +9,7 @@
     align-items: center;
     justify-content: space-between;
     padding: .5rem 1rem;
+    pointer-events: none;
 }
 
 .navbar-brand {
@@ -26,8 +27,8 @@
     text-decoration: none;
     vertical-align: middle;
     margin-top: -0.5rem;
-    transition: all 0.3s ease;
-
+    transition: all 0.4s ease;
+    pointer-events: auto;
 }
 
 .navbar-brand:hover {
@@ -51,7 +52,8 @@
     line-height: 1.5;
     border-radius: .25rem;
     margin-top: .5rem;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
+    pointer-events: auto;
 }
 
 .btn:hover {
@@ -87,3 +89,14 @@
     vertical-align: middle;
     margin-top: .8rem;
 }
+
+/* @font-face {
+    font-family: "Header"; 
+    src: url("../fonts/") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+  } 
+
+header {
+    font-family: "Header";
+} */
