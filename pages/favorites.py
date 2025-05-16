@@ -18,6 +18,7 @@ blueprint = flask.Blueprint(
 @login_required
 @blueprint.route('/favorites')
 def favorite():
+    # Вывод информации об избранном
     db = db_session.create_session()
     a = db.query(Favorites).filter(Favorites.user_id == current_user.id).all()
     return render_template('favorites.html', lt=a)
