@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="icon" href="{{ url_for('static', filename='images/icons/search.png') }}" type="image/x-icon">
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/search.css') }}">    
 {% endblock %}
 
 {% block main %}
-<main>
+<main style="margin: 50px">
+    <!-- Проверка наличия билетов -->
     {% if lt|length == 0 %}
         <div class="alert alert-danger" role="alert">{{no_ans}}</div>
     {% endif %}
+    <!-- Выводим данные о билетах -->
     {% for i in flights_info %}
         <div>
         <form action="/save_ticket" method="post">
@@ -20,12 +20,14 @@
         <h3>Дополнительная информация:</h3>
         Название авиакомпании: <input type='text' name="airline_name" readonly value="{{i['airline_name']}}">
         Номер полёта: <input type='text' name="flight_number" readonly value="{{i['flight_number']}}">
+        <!-- Если пользователь авторизовался, то он может сохранить билет -->
         {% if current_user.is_authenticated %}
                 <button type="submit">Сохранить этот билет</button>
         {% else %}
             <a class="btn btn-primary" href=/login>Войдите для добавления в избранное</a>
         {% endif %}
         </form>
+        <hr>
         </div>
     {% endfor %}
 </main>
