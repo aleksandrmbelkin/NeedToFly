@@ -12,8 +12,10 @@ blueprint = flask.Blueprint(
     template_folder='templates'
 )
 
+
 @blueprint.route('/register', methods=['GET', 'POST'])
 def register():
+    # Регистрация пользователя
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
@@ -38,12 +40,14 @@ def register():
 
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+    # Логин пользователя
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
+            print('Вход')
             return redirect("/")
         return render_template('login.html', title='Авторизация',
                                message="Неправильный логин или пароль",
