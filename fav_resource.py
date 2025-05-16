@@ -5,6 +5,7 @@ from flask import jsonify
 
 
 def abort_if_news_not_found(fav_id):
+    # Функция в случае ошибки в запросе
     session = db_session.create_session()
     news = session.query(Favorites).get(fav_id)
     if not news:
@@ -13,6 +14,7 @@ def abort_if_news_not_found(fav_id):
 
 class FavsResource(Resource):
     def get(self, fav_id):
+        # Само api, которое возвращает информацию об избранном билете по его id
         abort_if_news_not_found(fav_id)
         session = db_session.create_session()
         fav = session.query(Favorites).get(fav_id)
