@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="icon" href="{{ url_for('static', filename='images/icons/search.png') }}" type="image/x-icon">
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/search.css') }}">
 {% endblock %}
 
 {% block main %}
 <main>
-    <a href="{{ url_for('static', filename='tickets_info/' + filename) }}" download
+    <!-- Скачивание информации - возвращение -->
+    <a style="margin: 50px" href="{{ url_for('static', filename='tickets_info/' + filename) }}" download
     class="btn btn-primary">Скачать</a>
-    <a href='/delete_ticket_info/{{current_user.id}}/{{filename}}' class="btn btn-primary">Вернуться</a>
+    <a style="margin: 50px" href='/delete_ticket_info/{{current_user.id}}/{{filename}}' class="btn btn-primary">Вернуться</a>
 </main>
 {% endblock %}
