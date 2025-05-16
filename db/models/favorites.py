@@ -6,6 +6,7 @@ from sqlalchemy import orm
 
 
 class Favorites(SqlAlchemyBase, SerializerMixin):
+    # Создание таблицы favorites для БД
     __tablename__ = 'favorites'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
@@ -18,3 +19,4 @@ class Favorites(SqlAlchemyBase, SerializerMixin):
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relationship('User')
+    # связь с таблицей users
