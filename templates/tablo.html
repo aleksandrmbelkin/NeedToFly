@@ -2,11 +2,12 @@
 
 {% block head %}
 <link rel="icon" href="{{ url_for('static', filename='images/icons/search.png') }}" type="image/x-icon">
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/tablo.css') }}">    
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/tablo.css') }}">
 {% endblock %}
 
 {% block main %}
 <main>
+    <!-- Форма для ввода аэропорта и страны-->
     <form id="myForm" method="POST" class="base">
         <p>
             {{ form.airport.label }}<br>
@@ -31,7 +32,7 @@
         <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
         <div>{{ message }}</div>
     </form>
-    
+        <!-- Вывод найденных рейсов -->
         {% for i in lt %}
             <a class="btn btn-primary" href="/{{i['name']}}/{{i['airport_departure']}}"><h2>Полёт в {{i["country"]}}</h2></a>
             <div>В аэропорт {{i["name"]}} (iata Код), из аэропорта {{i["airport_departure"]}}</div><br>
