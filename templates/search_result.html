@@ -31,7 +31,7 @@
                     </div>
 
                 {% else %}
-                    <!-- Билет в дин конец -->
+                    <!-- Билет в один конец -->
                     {% if type == 'one-way' %}
                         {% for flight in data %}
                             <div class="search-container">
@@ -62,12 +62,14 @@
                                                 <p class="price">Цена: от {{ flight['price']['base'][:-3] }} {{ flight['price']['currency'] }}</p>
                                                 <p class="place">Колличество мест: {{ flight['place'] }}</p>
                                                 <p class="travelClass">Класс: {{ flight['travelClass'] }}</p>
-                                                <button class="price save">Сохранить этот билет</button>
+                                                {% if current_user.is_authenticated %}
+                                                    <a class="btn btn-primary" href="/save_ticket_search/{{ flight['segments'][0]['departure']['iataCode'] }}/{{ flight['segments'][-1]['arrival']['iataCode'] }}/{{ flight['segments'][0]['departure']['at']['date'] }}/{{ flight['segments'][0]['aviacompany']['name'] }}/Неизвестно" style="position: absolute; font-size: 1.5rem; white-space: nowrap; left: 84%; transform: translateX(-50%); top: 9rem">Сохранить этот билет</a>
+                                                {% endif %}
                                             </div>
 
                                         </div>
                                         <div class="aviacompany">
-                                            <img class="company-logo" src={{ flight['segments'][0]['aviacompany']['logo'] }}>
+                                            <img class="company-logo" src={{flight['segments'][0]['aviacompany']['logo']}}>
                                             <label class="company-logo company-name">{{ flight['segments'][0]['aviacompany']['name'] }}</label>
 
                                             <div class="baggage">
@@ -98,7 +100,9 @@
                                             <p class="price">Цена: от {{ flight['price']['base'][:-3] }} {{ flight['price']['currency'] }}</p>
                                             <p class="price place">Колличество мест: {{ flight['place'] }}</p>
                                             <p class="price travelClass">Класс: {{ flight['travelClass'] }}</p>
-                                            <button class="price save">Сохранить этот билет</button>
+                                            {% if current_user.is_authenticated %}
+                                                    <a class="btn btn-primary" href="/save_ticket_search/{{flight['segments'][0]['departure']['iataCode']}}/{{flight['segments'][-1]['arrival']['iataCode']}}/{{flight['segments'][0]['departure']['at']['date']}}/{{flight['segments'][0]['aviacompany']['name']}}/Неизвестно" style="position: absolute; font-size: 1.5rem; white-space: nowrap; left: 84%; transform: translateX(-50%); top: 9rem">Сохранить этот билет</a>
+                                                {% endif %}
 
                                             <div id="transits-{{ loop.index }}" class="transits">
                                                 {% for segment in flight['segments'] %}
@@ -123,7 +127,7 @@
 
                                         </div>
                                         <div class="aviacompany">
-                                            <img class="company-logo" src={{ flight['segments'][0]['aviacompany']['logo'] }}>
+                                            <img class="company-logo" src={{flight['segments'][0]['aviacompany']['logo']}}>
                                             <label class="company-logo company-name">{{ flight['segments'][0]['aviacompany']['name'] }}</label>
 
                                             <div class="baggage">
@@ -170,7 +174,9 @@
                                                 <p class="price">Цена: от {{ flight['price']['base'][:-3] }} {{ flight['price']['currency'] }}</p>
                                                 <p class="place">Колличество мест: {{ flight['place'] }}</p>
                                                 <p class="travelClass">Класс: {{ flight['travelClass'] }}</p>
-                                                <button class="price save">Сохранить этот билет</button>
+                                                {% if current_user.is_authenticated %}
+                                                <a class="btn btn-primary" href="/save_ticket_search/{{ flight['itineraries'][0]['segments'][0]['departure']['iataCode'] }}/{{ flight['itineraries'][0]['segments'][-1]['arrival']['iataCode'] }}/{{ flight['itineraries'][0]['segments'][0]['departure']['at']['date'] }}/{{ flight['itineraries'][0]['segments'][0]['aviacompany']['name'] }}/Неизвестно" style="position: absolute; font-size: 1.5rem; white-space: nowrap; left: 84%; transform: translateX(-50%); top: 9rem">Сохранить этот билет</a>
+                                                {% endif %}
                                             </div>
 
                                         </div>
@@ -193,7 +199,7 @@
                                         </div>
 
                                         <div class="aviacompany">
-                                            <img class="company-logo" src={{ flight['itineraries'][0]['segments'][0]['aviacompany']['logo'] }}>
+                                            <img class="company-logo" src={{flight['itineraries'][0]['segments'][0]['aviacompany']['logo']}}>
                                             <label class="company-logo company-name">{{ flight['itineraries'][0]['segments'][0]['aviacompany']['name'] }}</label>
 
                                             <div class="baggage">
@@ -210,13 +216,13 @@
                                                 <p class="time time-time">{{ flight['segments'][0]['departure']['at']['time'] }}</p>
                                                 <p class="time date-time">{{ flight['segments'][0]['departure']['at']['date'] }}</p>
                                             </div>
-                                        
+
                                             <div class="strela">═══════⮞
                                                 <p class="time">{{ flight['duration'] }}</p>
                                                 <button class="time transit-button" onclick="toggleContent('transits-{{ loop.index }}')">Пересадки</button>
                                             </div>
-                                            
-                                            <div class="where-ticket-arrive">{{ flight['segments'][-1]['arrival']['town'] }} ({{ flight['segments'][-1]['arrival']['iataCode'] }})
+
+                                            <div class="where-ticket-arrive">{{ flight['segments'][-1]['arrival']['town'] }} ({{flight['segments'][-1]['arrival']['iataCode']}})
                                                 <p class="time time-time">{{ flight['segments'][-1]['arrival']['at']['time'] }}</p>
                                                 <p class="time date-time">{{ flight['segments'][-1]['arrival']['at']['date'] }}</p>
                                             </div>
@@ -224,20 +230,20 @@
                                             <p class="price place">Колличество мест: {{ flight['place'] }}</p>
                                             <p class="price travelClass">Класс: {{ flight['travelClass'] }}</p>
 
-                                            <div id="transits-{{ loop.index }}" class="transits">
+                                            <div id="transits-{{loop.index}}" class="transits">
                                                 {% for segment in flight['segments'] %}
                                                     <div class="one-transit">
                                                         <div class="where-ticket-departure transit-departure">{{ segment['departure']['town'] }} ({{ segment['departure']['iataCode'] }})
                                                             <p class="time time-time">{{ segment['departure']['at']['time'] }}</p>
                                                             <p class="time date-time date-time-transit">{{ segment['departure']['at']['date'] }}</p>
                                                         </div>
-                                                    
+
 
                                                         <div class="transit-strela">═══════⮞
                                                             <p class="time">{{ segment['duration'] }}</p>
                                                         </div>
 
-                                                        <div class="transit-arrive">{{ segment['arrival']['town'] }} ({{ segment['arrival']['iataCode'] }})
+                                                        <div class="transit-arrive">{{segment['arrival']['town'] }} ({{ segment['arrival']['iataCode']}})
                                                             <p class="time time-time">{{ segment['arrival']['at']['time'] }}</p>
                                                             <p class="time date-time date-time-transit">{{ segment['arrival']['at']['date'] }}</p>
                                                         </div>
@@ -247,7 +253,7 @@
 
                                         </div>
                                         <div class="aviacompany">
-                                            <img class="company-logo" src={{ flight['segments'][0]['aviacompany']['logo'] }}>
+                                            <img class="company-logo" src={{flight['segments'][0]['aviacompany']['logo']}}>
                                             <label class="company-logo company-name">{{ flight['segments'][0]['aviacompany']['name'] }}</label>
 
                                             <div class="baggage">
