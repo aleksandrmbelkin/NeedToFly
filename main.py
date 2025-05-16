@@ -14,6 +14,7 @@ from db.models.favorites import Favorites
 from fav_resource import FavsResource
 
 
+# Инициализация программы
 app = Flask(__name__)
 api = Api(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -42,6 +43,7 @@ def main():
     db_session.create_session()
 
     port = int(os.environ.get("PORT", 5000))
+    # Регистрация blueprints
     app.register_blueprint(search.blueprint)
     app.register_blueprint(tablo.blueprint)
     app.register_blueprint(log.blueprint)
