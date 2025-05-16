@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="icon" href="{{ url_for('static', filename='images/icons/search.png') }}" type="image/x-icon">
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/search.css') }}">
 {% endblock %}
 
 {% block main %}
 <main>
+    <!-- Проходимся по списку и выводим информацию об избранном -->
     {% if lt|length != 0 %}
         {% for i in lt %}
             <div>
