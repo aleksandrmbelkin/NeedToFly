@@ -23,6 +23,7 @@ def favorite(user_id, fav_id):
         db = db_session.create_session()
         a = db.query(Favorites).filter(Favorites.user_id == current_user.id, Favorites.id == fav_id).first()
         filename = f'{user_id}{fav_id}.txt'
+        # Создаём файл для скачивания
         with open(f'static/tickets_info/{filename}', 'w', encoding='utf-8') as f:
             f.write(f'Начальный аэропорт: {a.airport_departure}\n')
             f.write(f'Конечный аэропорт: {a.airport_arrival}\n')
@@ -38,5 +39,6 @@ def favorite(user_id, fav_id):
 @blueprint.route('/delete_ticket_info/<int:user_id>/<filename>')
 def delete_ticket_info(user_id, filename):
     if user_id == current_user.id:
+        # Удаляем файл для скачивания
         os.remove(f'static/tickets_info/{filename}')
     return redirect('/favorites')
